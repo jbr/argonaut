@@ -8,7 +8,7 @@ It's as easy as:
 
 h2. Usage
 
-It's a whole lot like .xml.builder, only it's .json.argonaut.  Make an appropriately named view, like @show.json.argonaut@ and put something in it like:
+It's a whole lot like @.xml.builder@, only it's @.json.argonaut@.  Make an appropriately named view, like @show.json.argonaut@ and put something in it like:
 
 <pre><code>for idea in @ideas
   doc.ideas do |i|
