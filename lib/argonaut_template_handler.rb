@@ -11,7 +11,7 @@ module ActionView
       def compile(template) %{
         doc = ::Argonaut.new do |doc|
           #{template.source}
-        end.to_json
+        end.to_#{template.format} #{":root => 'response'" if template.format == 'xml'}
       } end
 
       def cache_fragment(block, name = {}, options = nil)
