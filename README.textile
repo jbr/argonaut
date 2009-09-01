@@ -3,25 +3,44 @@ h1. Argonaut is a lightweight JSON builder template handler for Rails
 h2. Installing it
 
 It's as easy as:
-<pre><code>
-script/plugin install git://github.com/jbr/argonaut.git
+<pre><code>script/plugin install git://github.com/jbr/argonaut.git
 </code></pre>
 
 h2. Usage
 
 It's a whole lot like .xml.builder, only it's .json.argonaut.  Make an appropriately named view, like @show.json.argonaut@ and put something in it like:
 
-<pre><code>
-doc.list do |list|
-  list.created_at @list.created_at
-  list.items do |items|
-    for item in @list.items
-      items.item do |item_node|
-        item_node.title item.title
+<pre><code>doc.list do |list|
+for idea in @ideas
+  doc.ideas do |i|
+    i.title idea.title
+    for comment in idea.comments
+      i.comments do |c|
+        c.author comment.author.to_s
+        c.text comment.text
       end
     end
   end
 end
+
 </code></pre>
 
-And you'll get back some nice JSON.  All of the actual heavy lifting is handled by the json gem.  We're really just building up a big hash with the builder pattern.
+Which is identical to
+
+<pre><code>{
+  :ideas => @ideas.map do |idea|
+    {
+      :title => idea.title,
+      :comments => idea.comments.map do |comment|
+        {
+          :author => comment.author.to_s,
+          :text => comment.text
+        }
+      end
+    }
+  end
+}.to_json
+end
+</code></pre>
+
+Just a little code kata, not really sure that the former is actually prettier.

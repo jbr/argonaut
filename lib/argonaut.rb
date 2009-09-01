@@ -1,6 +1,6 @@
 require 'json'
 class Argonaut
-  instance_methods.each {|m| undef_method(m) unless %w(__id__ __send__ to_json instance_eval).include?(m.to_s)}
+  instance_methods.each {|m| undef_method(m) unless %w(__id__ __send__ to_json instance_eval nil? is_a?).include?(m.to_s)}
   
   def initialize(&blk)
     @hash = {}
@@ -8,10 +8,18 @@ class Argonaut
   end
   
   def method_missing(key, *values)
-    if block_given?
-      @hash[key] = Argonaut.new {|a| yield a}
+    value = if block_given?
+      Argonaut.new {|a| yield a}
     else
-      @hash[key] = values.size == 1 ? values.first : values
+      values.size == 1 ? values.first : values
+    end
+    
+    if @hash[key].nil?
+      @hash[key] = value
+    elsif @hash[key].is_a? Array
+      @hash[key] << value
+    else
+      @hash[key] = [@hash[key], value]
     end
   end
   
