@@ -1,5 +1,12 @@
 h1. Argonaut is a lightweight JSON builder template handler for Rails
 
+h2. Installing it
+
+It's as easy as:
+<pre><code>
+script/plugin install git://github.com/jbr/argonaut.git
+</code></pre>
+
 h2. Usage
 
 It's a whole lot like .xml.builder, only it's .json.argonaut.  Make an appropriately named view, like @show.json.argonaut@ and put something in it like:
