@@ -21,7 +21,6 @@ It's a whole lot like @.xml.builder@, only it's @.json.argonaut@.  Make an appro
     end
   end
 end
-
 </code></pre>
 
 Which is identical to
@@ -43,3 +42,8 @@ end
 </code></pre>
 
 Just a little code kata, not really sure that the former is actually prettier.
+
+
+h2. XML too
+
+The name makes less sense and it's not really better than Builder, but you can do @.xml.argonaut@ as well now.  It's the equivalent of calling @to_xml(:root => 'response')@ on the above hash.  In theory, the same file could be used for @.xml.argonaut@ and @.json.argonaut@, but it's not obvious how to tell the template handler system to reuse a template.  Maybe soon.
